@@ -1,0 +1,152 @@
+Q7. Use Array.reduce() method to reverse the following given array
+const arr = [1, 2, 3, 4, 5]
+
+Solution-
+const arr = [1, 2, 3, 4, 5];
+
+const reversedArr = arr.reduce((reversed, current) => {
+  return [current, ...reversed];
+}, []);
+
+console.log(reversedArr); // Output: [5, 4, 3, 2, 1]
+
+-------------------------------------------------------------------------------------------
+
+
+Q8.  In what order will the numbers 1-4 be logged to the console when the code below is executed? Why?
+
+(function() {
+
+    console.log(1); 
+
+    setTimeout(function(){console.log(2)}, 1000); 
+
+    setTimeout(function(){console.log(3)}, 0); 
+
+    console.log(4);
+
+})();
+
+
+Solution-
+
+The numbers 1, 4, and 3 will be logged to the console in that order.
+
+The first line of code logs the number 1 to the console.
+The second line of code uses the setTimeout() function to schedule a function to be executed after a delay of 1000 milliseconds (1 second). 
+The third line of code uses the setTimeout() function to schedule a function to be executed immediately. The fourth line of code logs the number 4 to the console.
+
+In this code, the first setTimeout() function will not be executed until 1000 milliseconds have passed.
+The second setTimeout() function will be executed immediately, because the delay argument is 0.
+The fourth line of code will be executed immediately after the third line of code, because the setTimeout() functions do not block the execution of the rest of the code.
+
+---------------------------------------------------------------------------------------------
+
+Q9. What will the code below output to the console and why?
+
+Solution-
+
+var arr1 = "john".split('');  // arr1 = ['j', 'o', 'h', 'n']
+var arr2 = arr1.reverse();   // arr2 is a reference to arr1 (both arrays are now ['n', 'h', 'o', 'j'])
+var arr3 = "jones".split(''); // arr3 = ['j', 'o', 'n', 'e', 's']
+
+arr2.push(arr3); // This adds arr3 as a single element to arr2, resulting in ['n', 'h', 'o', 'j', ['j', 'o', 'n', 'e', 's']]
+
+console.log("array 1: length=" + arr1.length + " last=" + arr1.slice(-1));
+// Output: array 1: length=5 last=j,o,n,e,s
+
+console.log("array 2: length=" + arr2.length + " last=" + arr2.slice(-1));
+// Output: array 2: length=5 last=j,o,n,e,s
+
+
+---------------------------------------------------------------------------------------------
+
+Q10. What will the following code's output be in sequence and explain why?
+function printNumber(num) {
+  console.log(num);
+}
+console.log(1);
+setTimeout(printNumber, 0, 2);
+setTimeout(printNumber, 100, 3);
+console.log(4);
+
+Solution-
+
+Output-
+1
+4
+2
+3
+
+Explanation:
+
+console.log(1);: This immediately logs 1 to the console.
+
+setTimeout(printNumber, 0, 2);: This schedules the printNumber function to be executed with an argument 2, after a delay of 0 milliseconds. However, the setTimeout callback is placed in the event queue and executed later.
+
+setTimeout(printNumber, 100, 3);: This schedules another printNumber function execution with an argument 3, after a delay of 100 milliseconds.
+Since it has a slight delay, it will be executed after the next line of code.
+
+console.log(4);: This logs 4 to the console immediately after the first console.log statement.
+
+After the current synchronous tasks are done, the JavaScript event loop checks the event queue. It finds the scheduled setTimeout callbacks and executes them in the order they were scheduled.
+
+printNumber(2);: It logs 2 to the console.
+
+After 100 milliseconds, printNumber(3); is executed, logging 3 to the console.
+
+
+-----------------------------------------------------------------------------
+
+Q11. Check the below given code, if there are any issues, fix them and explain the output
+
+const numbers = [1, 2, 3, 4, 5];
+
+const result = numbers.reduce((acc, num) => {
+
+  if (num % 2 === 0) {
+
+    acc.evens.push(num);
+
+  } else {
+
+    acc.odds.push(num);
+
+  }
+
+  return acc;
+
+});
+
+
+
+console.log(result);
+
+
+Solution-
+
+Correct Code-
+const numbers = [1, 2, 3, 4, 5];
+
+const result = numbers.reduce((acc, num) => {
+  if (num % 2 === 0) {
+    acc.evens.push(num);
+  } else {
+    acc.odds.push(num);
+  }
+  return acc;
+}, { odds: [], evens: [] });
+
+console.log(result);
+
+Output-
+{ odds: [1, 3, 5], evens: [2, 4] }
+
+Explaination-
+
+The reduce function is initialized with an empty object { odds: [], evens: [] } as the initial value for the accumulator acc.
+For each element num in the numbers array, if num is even (i.e., num % 2 === 0 is true), it is pushed to the evens array in the accumulator acc. Otherwise, it is pushed to the odds array.
+The reduce function iterates through all the elements of the numbers array, populating the odds and evens arrays in the accumulator with the corresponding elements.
+Finally, the result object contains the two arrays odds and evens, which categorize the numbers in the original array into odd and even numbers
+
+
